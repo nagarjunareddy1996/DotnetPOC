@@ -1,0 +1,44 @@
+node('jenkins-slave-dotnet-helm') {
+    
+    def buildNumber = BUILD_NUMBER
+    
+    stage("Git clone" ){
+     
+git branch: 'testing', url: 'https://github.com/nagarjunareddy1996/DotnetPOC.git'
+
+    }
+    
+    
+    stage('docker image creation'){
+        withDockerServer([uri: 'tcp://10.108.90.170:2375']) {
+            sh """
+              cd MainWebApp
+                docker build -t nexus-hhgtest.motivitylabs.com:8083/mainservice:${buildNumber} -t nexus-hhgtest.motivitylabs.com:8083/mainservice:latest --build-arg CACHE_DATE=\$(date +%Y-%m-%d:%H:%M:%S) --build-arg sonarscan=yes . --no-cache
+               
+            """
+             withDockerRegistry(credentialsId: 'nexus cred', url: 'https://nexus-hhgtest.motivitylabs.com:8083/repository/ml-docker-pvtrepo/') {
+                 echo buildNumber
+                 sh "docker image push nexus-hhgtest.motivitylabs.com:8083/mainservice "
+             }
+        }
+    }
+    
+    stage('Deployment'){
+         kubeconfig(credentialsId: '2b44bda1-6b6e-485b-921b-243e8d3e2c0b', serverUrl: 'https://172.31.6.6:6443') {
+             withCredentials([file(credentialsId: '2b44bda1-6b6e-485b-921b-243e8d3e2c0b', variable: 'config')]) {
+                 withDockerRegistry(credentialsId: 'nexus cred', url: 'https://nexus-hhgtest.motivitylabs.com:8083/repository/ml-docker-pvtrepo/') {
+                     // jobnumber = buildNumber.trim()
+                     sh """
+                         helm version
+                         helm list
+                         pwd
+                         ls -lR
+                         // cd ${workspace}/EmployeeProject/ml-hhg-demo
+                         // helm template .
+                          // helm upgrade --install ml-hhg-demo .
+                     """
+                 }
+             }
+         }
+     }
+}

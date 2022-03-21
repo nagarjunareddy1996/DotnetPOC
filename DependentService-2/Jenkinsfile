@@ -10,13 +10,13 @@ node('jenkins-slave-dotnet-helm') {
     stage('docker image creation'){
         withDockerServer([uri: 'tcp://10.108.90.170:2375']) {
             sh """
-              cd DependentService-1
-                docker build -t nexus-hhgtest.motivitylabs.com:8083/service1:${buildNumber} -t nexus-hhgtest.motivitylabs.com:8083/service1:latest --build-arg CACHE_DATE=\$(date +%Y-%m-%d:%H:%M:%S)  . --no-cache
+              cd DependentService-2
+             docker build -t nexus-hhgtest.motivitylabs.com:8083/service2:${buildNumber} -t nexus-hhgtest.motivitylabs.com:8083/service2:latest --build-arg CACHE_DATE=\$(date +%Y-%m-%d:%H:%M:%S)  . --no-cache
                
             """
              withDockerRegistry(credentialsId: 'nexus cred', url: 'http://nexus-hhgtest.motivitylabs.com:8083/repository/ml-docker-pvtrepo/') {
                  echo buildNumber
-                 sh "docker image push nexus-hhgtest.motivitylabs.com:8083/service1 "
+                 sh "docker image push nexus-hhgtest.motivitylabs.com:8083/service2 "
              }
         }
     } 
