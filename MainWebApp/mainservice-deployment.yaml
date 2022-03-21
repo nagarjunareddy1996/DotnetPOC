@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mainservice-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mainservice
+  template:
+    metadata:
+      labels:
+        app: mainservice
+    spec:
+      containers:
+        - name: mainservice
+          image: binarythistle/commandservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mainserviceservice-srv
+spec:
+  type: NodePort
+  selector:
+    app: mainservice
+  ports:
+    - name: mainserviceservice
+      protocol: TCP
+      port: 80
+      targetPort: 80

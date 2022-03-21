@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service2-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service2
+  template:
+    metadata:
+      labels:
+        app: service2
+    spec:
+      containers:
+        - name: service2
+          image: binarythistle/commandservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service1-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: service2
+  ports:
+  - name: service2
+    protocol: TCP
+    port: 80
+    targetPort: 80 

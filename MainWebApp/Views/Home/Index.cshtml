@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <br />
+    @if (Convert.ToBoolean(ViewData["Message"]))
+    {
+        <p>Services are up and running.</p>
+    }
+    else
+    {
+        <p>One of service has error.</p>
+    }
+
+</div>
