@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: service1
-          image: binarythistle/commandservice:latest
+          image: binarythistle/platformservice:latest
 ---
 apiVersion: v1
 kind: Service

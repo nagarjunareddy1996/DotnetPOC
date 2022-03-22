@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: mainservice
-          image: binarythistle/commandservice:latest
+          image: nexus-hhgtest.motivitylabs.com:8448/mainserviceservice:latest
 ---
 apiVersion: v1
 kind: Service

@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "kubernetes://schema/v1%40service": "file:///c%3A/Users/Nagarajuna/Desktop/DotnetPOC/k8s/mysql-svc2-deployment.yaml"
+    }
+}
