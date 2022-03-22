@@ -23,7 +23,10 @@ spec:
           - name: ACCEPT_EULA
             value: "Y"
           - name: SA_PASSWORD
-            value: Admin@123
+            valueFrom:
+              secretKeyRef:
+                name: mssql-pass
+                key: SA_PASSWORD
           volumeMounts:
           - mountPath: /var/opt/mssql/data
             name: mssqldb
