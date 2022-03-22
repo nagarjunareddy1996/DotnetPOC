@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: mainservice
-          image: nexus-hhgtest.motivitylabs.com:8448/mainserviceservice:latest
+          image: nexus-hhgtest.motivitylabs.com:8448/mainservice:latest
 ---
 apiVersion: v1
 kind: Service
