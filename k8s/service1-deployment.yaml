@@ -14,7 +14,9 @@ spec:
     spec:
       containers:
         - name: service1
-          image: binarythistle/platformservice:latest
+          image: nexus-hhgtest.motivitylabs.com:8448/service1:latest
+      imagePullSecrets:
+        - name: regsecret    
 ---
 apiVersion: v1
 kind: Service
