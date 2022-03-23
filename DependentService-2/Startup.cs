@@ -24,8 +24,12 @@ namespace DependentService_2
         {
             services.AddControllers();
 
-            services.AddDbContext<ServiceContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ServiceContext")));
+            //services.AddDbContext<ServiceContext>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("ServiceContext")));
+
+            var sqlConnectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContext<ServiceContext>(options => options.UseNpgsql(sqlConnectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,8 +7,8 @@ namespace DependentService_2.Model
 {
     public class Inventory
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
-        public int quantity { get; set; }
+        public int Quantity { get; set; }
     }
 }

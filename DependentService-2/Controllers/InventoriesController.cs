@@ -47,7 +47,7 @@ namespace DependentService_2.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutInventory(int id, Inventory inventory)
         {
-            if (id != inventory.Id)
+            if (id != inventory.ID)
             {
                 return BadRequest();
             }
@@ -81,7 +81,7 @@ namespace DependentService_2.Controllers
             _context.Inventory.Add(inventory);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetInventory", new { id = inventory.Id }, inventory);
+            return CreatedAtAction("GetInventory", new { id = inventory.ID }, inventory);
         }
 
         // DELETE: api/Inventories/5
@@ -102,7 +102,7 @@ namespace DependentService_2.Controllers
 
         private bool InventoryExists(int id)
         {
-            return _context.Inventory.Any(e => e.Id == id);
+            return _context.Inventory.Any(e => e.ID == id);
         }
     }
 }
