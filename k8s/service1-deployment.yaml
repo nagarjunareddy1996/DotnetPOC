@@ -21,7 +21,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: service1-clusterip-srv
+  name: dotnet-service1
 spec:
   type: ClusterIP
   selector:
