@@ -28,7 +28,7 @@ namespace DependentService_2
             //        options.UseSqlServer(Configuration.GetConnectionString("ServiceContext")));
             
             var sqlConnectionString = Configuration.GetConnectionString("DefaultConnection");
-            var sqlConnectionString = Configuration.GetConnectionString("DBconnection");
+            
           services.AddHttpClient("AccountClient", c =>       
           {  
             c.DefaultRequestHeaders.Add("X-Custom-Env", "TEST");    
