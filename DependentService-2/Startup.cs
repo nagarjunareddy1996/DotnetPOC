@@ -26,9 +26,15 @@ namespace DependentService_2
 
             //services.AddDbContext<ServiceContext>(options =>
             //        options.UseSqlServer(Configuration.GetConnectionString("ServiceContext")));
-
+            
             var sqlConnectionString = Configuration.GetConnectionString("DefaultConnection");
-
+            var sqlConnectionString = Configuration.GetConnectionString("DBconnection");
+          services.AddHttpClient("AccountClient", c =>       
+          {  
+            c.DefaultRequestHeaders.Add("X-Custom-Env", "TEST");    
+          });
+ 
+ 
             services.AddDbContext<ServiceContext>(options => options.UseNpgsql(sqlConnectionString));
         }
 
@@ -50,6 +56,8 @@ namespace DependentService_2
             {
                 endpoints.MapControllers();
             });
+            app.Use(async (context, next) =>{
+		context.Response.Headers.Add("X-Codepedia-Custom-Header-Response", "Satinder singh");await next();});
         }
     }
 }
